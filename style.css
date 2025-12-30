@@ -27,6 +27,13 @@ body {
   align-items: center;
   padding: max(1.25rem, env(safe-area-inset-top, 1.25rem)) 1rem max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
   overflow-x: hidden;
+  width: 100%;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  min-height: 100%;
 }
 
 .hidden {
@@ -35,26 +42,30 @@ body {
   pointer-events: none;
 }
 
-#splash-ea {
+#ea-splash {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100svh;
+  min-height: 100vh;
   background: var(--vx-black);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: max(24px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+           max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  z-index: 9999;
+  overflow: hidden;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.12s linear, visibility 0.12s linear;
-  overflow: hidden;
 }
 
-#splash-ea.active {
+#ea-splash.active {
   opacity: 1;
   visibility: visible;
 }
 
-#splash-ea.hidden {
+#ea-splash.hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -103,12 +114,13 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
+  width: min(100%, 540px);
 }
 
 .splash-logo {
-  width: min(460px, 78vw);
+  width: min(92vw, 460px);
   aspect-ratio: 4 / 1.5;
-  max-block-size: min(210px, 40vw);
+  max-block-size: min(72vw, 230px);
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.12s linear, transform 0.12s linear;
@@ -287,16 +299,6 @@ header {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
-}
-
-.background-note {
-  position: absolute;
-  bottom: 1rem;
-  width: 100%;
-  text-align: center;
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-family: "Inter", system-ui, sans-serif;
 }
 
 .header-block {
