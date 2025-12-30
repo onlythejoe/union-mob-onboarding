@@ -46,6 +46,7 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.12s linear, visibility 0.12s linear;
+  overflow: hidden;
 }
 
 #splash-ea.active {
@@ -116,6 +117,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding-inline: clamp(0.5rem, 3vw, 1rem);
+  max-width: min(100vw, 460px);
 }
 
 .splash-logo.animate-in {
@@ -134,6 +137,13 @@ body {
   border: 0;
   background: transparent;
   pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .splash-logo {
+    width: min(92vw, 420px);
+    max-height: min(54vw, 190px);
+  }
 }
 
 .container {
