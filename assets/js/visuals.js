@@ -79,7 +79,8 @@
     };
 
     async function initUnionLabAnimation() {
-      if (!unionLabCanvas || unionLabInitialized) return;
+      const container = unionLabCanvas;
+      if (!container || unionLabInitialized) return;
 
       try {
         const THREE = await import("https://unpkg.com/three@0.164.1/build/three.module.js");
@@ -88,7 +89,7 @@
 
         const frustumSize = 3.2;
         const getAspect = () => {
-          const rect = unionLabCanvas.getBoundingClientRect();
+          const rect = container.getBoundingClientRect();
           return Math.max(rect.width, 1) / Math.max(rect.height, 1);
         };
 
@@ -108,7 +109,7 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         const setRendererSize = () => {
-          const rect = unionLabCanvas.getBoundingClientRect();
+          const rect = container.getBoundingClientRect();
           const width = Math.max(rect.width, 1);
           const height = Math.max(rect.height, 1);
           const newAspect = width / height;
@@ -121,7 +122,16 @@
         };
 
         setRendererSize();
-        unionLabCanvas.appendChild(renderer.domElement);
+        const c = renderer.domElement;
+        c.dataset.html2canvasIgnore = "true";
+        c.dataset.engine = "three.js";
+        c.setAttribute("data-html2canvas-ignore", "true");
+        c.setAttribute("data-engine", "three.js");
+        c.id = "union-lab-canvas";
+        console.log("[UM] three canvas tagged", c.getAttribute("data-html2canvas-ignore"), c.getAttribute("data-engine"));
+        if (container && !container.querySelector("canvas")) {
+          container.appendChild(c);
+        }
 
         const createArrowMesh = (size = 0.02) => {
           const shape = new THREE.Shape();

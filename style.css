@@ -91,35 +91,48 @@ html, body {
   opacity: 0;
   transform: scale(0.98);
   animation:
-    logo-intro 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    logo-breath 0.9s ease-in-out 0.9s 1,
-    logo-outro 0.9s cubic-bezier(0.4, 0, 0.6, 1) 2.2s forwards;
+    ea-logo-intro 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    ea-logo-breath 0.9s ease-in-out 0.9s 1,
+    ea-logo-outro 0.9s cubic-bezier(0.4, 0, 0.6, 1) 2.2s forwards;
+}
+
+#ea-logo .ea-electronic,
+#ea-logo .ea-artefacts {
+  opacity: 0;
 }
 
 #ea-logo .ea-electronic {
   font-weight: 200;
   letter-spacing: 0.005rem;
   font-size: 0.78em;
+  animation: ea-part-intro 0.9s ease-out 0.1s forwards;
+  animation-delay: 0.1s;
 }
 
 #ea-logo .ea-artefacts {
   font-weight: 520;
   letter-spacing: 0.006rem;
   font-size: 1.22em;
+  animation: ea-part-intro 0.9s ease-out 0.3s forwards;
+  animation-delay: 0.3s;
 }
 
-@keyframes logo-intro {
+@keyframes ea-logo-intro {
   0% {
     opacity: 0;
     transform: scale(0.96);
   }
+  60% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
   100% {
     opacity: 0.9;
-    transform: scale(1);
+    transform: scale(1.01);
   }
 }
 
-@keyframes logo-breath {
+@keyframes ea-logo-breath {
   0%, 100% {
     letter-spacing: 0rem;
     opacity: 0.9;
@@ -130,7 +143,7 @@ html, body {
   }
 }
 
-@keyframes logo-outro {
+@keyframes ea-logo-outro {
   0% {
     opacity: 1;
     transform: scale(1);
@@ -143,6 +156,15 @@ html, body {
   }
 }
 
+@keyframes ea-part-intro {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.95;
+  }
+}
+
 #background-union-lab {
   position: fixed;
   inset: 0;
@@ -150,6 +172,9 @@ html, body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.18s ease, visibility 0.18s ease;
@@ -169,16 +194,12 @@ html, body {
 }
 
 #union-lab-canvas {
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-}
-
-#union-lab-canvas canvas {
-  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  display: block;
 }
 
 .splash-content {
@@ -247,6 +268,212 @@ html, body {
   gap: 1rem;
   position: relative;
   border-radius: 0;
+}
+
+.presence-card-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 3, 3, 0.68);
+  display: grid;
+  place-items: center;
+  justify-items: center;
+  gap: clamp(0.75rem, 2vw, 1.2rem);
+  z-index: 10010;
+  padding: clamp(1rem, 3vw, 2rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.presence-card-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.presence-card {
+  width: clamp(280px, 88vw, 420px);
+  aspect-ratio: 3 / 4.6;
+  max-height: min(calc(var(--vh, 1vh) * 100 - 2rem), 680px);
+  background: #050505;
+  border-radius: 1rem;
+  border: 1px solid rgba(124, 58, 237, 0.7);
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.8vw, 1rem);
+  background-image:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 56%),
+    radial-gradient(circle at 70% 20%, rgba(124, 58, 237, 0.25), transparent 45%);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+  position: relative;
+}
+
+.presence-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  box-shadow: inset 0 0 30px rgba(124, 58, 237, 0.35);
+}
+
+.presence-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.8vw, 0.75rem);
+  z-index: 1;
+}
+
+.presence-card-body {
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.membership-card__tag {
+  letter-spacing: 0.5em;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.membership-card__intro {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.membership-card__name {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin: 0;
+}
+
+.membership-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.5rem, 1vw, 1rem);
+}
+
+.membership-card__logo {
+  max-width: clamp(70px, 20vw, 110px);
+  height: auto;
+  filter: opacity(0.9);
+}
+
+@media (max-width: 480px) {
+  .membership-card__header {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.membership-card__content {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 1.5vw, 0.95rem);
+  padding-right: 0.35rem;
+  min-height: 0;
+  padding-bottom: 0.5rem;
+}
+
+.membership-card__field {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--vx-muted);
+}
+
+.membership-card__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-right: 0.35rem;
+}
+
+.presence-card-content {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.presence-card-content .membership-card__content {
+  flex: 1;
+}
+
+.presence-card-actions {
+  width: min(92vw, 420px);
+  max-width: clamp(280px, 92vw, 420px);
+  margin-top: 1rem;
+  display: grid;
+  gap: clamp(0.4rem, 1.2vw, 0.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.presence-card-actions button {
+  width: 100%;
+  min-height: clamp(42px, 4.5vw, 48px);
+}
+
+.presence-card-actions .ghost {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.presence-card-actions .primary {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  .presence-card-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.primary {
+  border: none;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 20px rgba(124, 58, 237, 0.5);
+}
+
+.ghost {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+}
+
+.ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes card-look {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #app-onboarding {

@@ -38,7 +38,7 @@
         </div>
         <p class="progress-status">Étape 1 / 7</p>
       </div>
-      <p class="transition-text" id="transitionMessage">Tu avances vite — étape 1 / 7.</p>
+      <p class="transition-text" id="transitionMessage">Tu es ici.</p>
     </div>
 
     <form id="unionForm" class="form-shell">
@@ -47,12 +47,9 @@
           <section class="step active" data-step="1">
             <div class="step-inner">
               <h1>Union Mob</h1>
-              <p class="subtitle">Rejoindre l’écosystème</p>
+              <p class="subtitle">Tu prends place dans l’écosystème</p>
               <p class="step-note">
-                Parcours fluide (2 à 3 minutes) pour situer ta présence dans l’écosystème et activer ton lien au collectif.
-              </p>
-              <p class="step-hook">
-                Tu fais déjà partie de ce que nous construisons.
+                Ce passage sert à poser ta présence. L’idée : savoir qui est ici, pour que le collectif sache comment te rencontrer.
               </p>
             </div>
           </section>
@@ -60,6 +57,9 @@
         <section class="step" data-step="2">
           <div class="step-inner">
             <h2>Identité</h2>
+            <p class="step-note">
+              On collecte simplement les prénoms, emails et pronoms pour que les échanges soient fluides, doux et respectueux.
+            </p>
             <label for="prenom">Prénom</label>
             <input id="prenom" name="prenom" placeholder="Prénom" required autocomplete="given-name" />
 
@@ -82,21 +82,16 @@
               <option value="autre">autre</option>
               <option value="je préfère ne pas préciser">je préfère ne pas préciser</option>
             </select>
-            <p class="field-hint">Laisser vide = langage neutre.</p>
+            <p class="field-hint">Laisser vide = langage neutre. Tu peux revenir dessus quand tu veux.</p>
+            <p class="field-hint" id="pronoun-feedback">Nous gardons ton prénom ici pour te nommer comme tu le souhaites.</p>
           </div>
         </section>
 
         <section class="step" data-step="3">
         <div class="step-inner">
             <h2>Ton lien à Union Mob</h2>
-            <p class="step-intro">
-              Ton statut ou partage actuel avec le collectif.
-            </p>
             <p class="step-note">
-              Ce statut décrit ton lien actuel : membre créatif, staff, bénévole, ou explorateur du collectif.
-            </p>
-            <p class="declaration-note">
-              Déclaration de position : c’est ta présence dans le collectif, pas une sélection.
+              On te demande ton lien actuel pour lire comment tu es là maintenant. Rien n’est figé, c’est une photographie du moment.
             </p>
             <label for="lien_unionmob">Ton lien à Union Mob</label>
             <select id="lien_unionmob" name="lien_unionmob" required>
@@ -125,15 +120,9 @@
 
         <section class="step" data-step="4">
         <div class="step-inner">
-            <h2>Union & rôle créatif</h2>
-            <p class="step-intro">
-              Le rôle ciblé, ce que tu veux apporter.
-            </p>
+            <h2>Unions & zones d’expression</h2>
             <p class="step-note">
-              Choisis la ou les unions qui décrivent ton champ d’action. L’union principale guide ton positionnement dans le collectif.
-            </p>
-            <p class="declaration-note">
-              Déclaration de contribution — pas d’évaluation, juste tes zones d’expression.
+              Décris ici les espaces où tu choisis de t’exprimer. L’union principale est une orientation, les secondaires viennent ajouter des textures à ta présence.
             </p>
             <label for="union_principale">Union principale</label>
             <select id="union_principale" name="union_principale" required>
@@ -163,6 +152,9 @@
         <section class="step" data-step="5">
           <div class="step-inner">
             <h2>Talents</h2>
+            <p class="step-note">
+              Partage les compétences que tu apportes. Ce n’est pas une évaluation, juste une déclaration pour orienter les collaborations.
+            </p>
             <label for="competences">Compétences principales</label>
             <textarea id="competences" name="competences" placeholder="Compétences principales"></textarea>
 
@@ -179,6 +171,9 @@
         <section class="step" data-step="6">
           <div class="step-inner">
             <h2>Motivation</h2>
+            <p class="step-note">
+              Raconte pourquoi tu fais partie de ce collectif, pour que le collectif sache quelles intentions t’accompagnent.
+            </p>
             <label for="motivation">Pourquoi Union Mob ?</label>
             <textarea id="motivation" name="motivation" placeholder="Pourquoi Union Mob ?"></textarea>
             <p class="field-hint">Libre — raconte ce que tu veux partager, sans obligation.</p>
@@ -197,10 +192,10 @@
           <div class="step-inner final-step">
             <h2>Final</h2>
             <p class="step-note" id="finalReadyMessage">
-              Tu es prêt·e. On relie ton profil aux bons cercles Union Mob.
+              Ta présence est enregistrée. C’est la seule promesse que nous faisons.
             </p>
             <p class="step-summary">
-              Vérifie que tes réponses sont justes, puis confirme pour partager ta présence.
+              Un dernier regard pour confirmer ce que tu viens de partager.
             </p>
           </div>
         </section>
@@ -209,13 +204,15 @@
       <div class="actions">
         <button type="button" id="prevBtn" class="ghost" hidden>Retour</button>
         <button type="button" id="nextBtn" class="primary">Commencer</button>
-        <button type="submit" id="submitBtn" class="primary" hidden>Envoyer</button>
+        <button type="button" id="preview-card-btn" class="primary" hidden>
+          Voir ma carte de présence
+        </button>
       </div>
     </form>
 
     <section class="success-section" id="success" hidden aria-live="polite">
       <h2>Bienvenue dans Union Mob</h2>
-      <p id="successMessage">Ton profil rejoint l’écosystème.</p>
+      <p id="successMessage">Ta présence est notée, rien d’autre.</p>
     </section>
 
     <footer>
@@ -223,13 +220,55 @@
     </footer>
   </main>
 
+  <div id="membership-card" class="presence-card-overlay hidden" aria-live="polite">
+    <div class="presence-card" role="dialog" aria-modal="true">
+      <div class="presence-card-top">
+        <p class="membership-card__tag">Carte de présence</p>
+        <p class="membership-card__intro">Voici ta présence Union Mob. Tu peux l’enregistrer comme trace ou simplement poursuivre.</p>
+        <div class="membership-card__header">
+          <h3 class="membership-card__name" data-card-name>—</h3>
+          <img class="membership-card__logo" src="assets/UM_Logo.png" alt="Union Mob logo" width="120" height="60" />
+        </div>
+      </div>
+      <div class="presence-card-body">
+        <div class="presence-card-content">
+          <div class="membership-card__content">
+            <p class="membership-card__field">
+              <span class="membership-card__label">Union(s)</span>
+              <span data-card-unions>—</span>
+            </p>
+            <p class="membership-card__field">
+              <span class="membership-card__label">Zones d’expression</span>
+              <span data-card-zones>—</span>
+            </p>
+            <p class="membership-card__field">
+              <span class="membership-card__label">Lien actuel</span>
+              <span data-card-link>—</span>
+            </p>
+            <p class="membership-card__field">
+              <span class="membership-card__label">Phrase libre</span>
+              <span data-card-notes>—</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="presence-card-actions">
+      <button type="button" id="membership-download" class="primary">Enregistrer ma carte</button>
+      <button type="button" id="membership-send" class="ghost">Envoyer ma présence</button>
+      <button type="button" id="membership-close" class="ghost">Continuer</button>
+    </div>
+  </div>
+
   <div class="ea-credit" aria-hidden="true">
     <div class="ea-logo-static" role="img" aria-label="Electronic Artefacts logo">
       <span class="ea-electronic">electronic</span>
       <span class="ea-artefacts">Artefacts</span>
+    </div>
   </div>
 
   <script src="assets/js/visuals.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
