@@ -42,11 +42,16 @@ html {
   pointer-events: none;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 #ea-splash {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100svh;
+  height: calc(var(--vh, 1vh) * 100);
   min-height: 100vh;
   background: var(--vx-black);
   display: grid;
@@ -119,6 +124,7 @@ html {
 
 .splash-logo {
   width: min(92vw, 460px);
+  max-width: clamp(260px, 92vw, 460px);
   aspect-ratio: 4 / 1.5;
   max-block-size: min(72vw, 230px);
   opacity: 0;
@@ -149,6 +155,12 @@ html {
   border: 0;
   background: transparent;
   pointer-events: none;
+}
+@media (max-width: 480px) {
+  #ea-splash {
+    padding: max(18px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right))
+             max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  }
 }
 
 @media (max-width: 600px) {

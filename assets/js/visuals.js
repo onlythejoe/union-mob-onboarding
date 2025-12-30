@@ -10,6 +10,7 @@
   }) {
     let unionLabInitialized = false;
     let visualTimer = null;
+    let splashFallbackTimer = null;
 
     const showUnionLabBackground = () => {
       unionLabBackground?.classList.add("active");
@@ -30,6 +31,10 @@
         clearTimeout(visualTimer);
         visualTimer = null;
       }
+      if (splashFallbackTimer) {
+        clearTimeout(splashFallbackTimer);
+        splashFallbackTimer = null;
+      }
       eaLogo?.classList.remove("animate-in", "animate-out");
       showUnionLabBackground();
       showOnboarding();
@@ -43,6 +48,9 @@
 
       if (visualTimer) {
         clearTimeout(visualTimer);
+      }
+      if (splashFallbackTimer) {
+        clearTimeout(splashFallbackTimer);
       }
 
       eaSplash.classList.add("active");
@@ -64,6 +72,10 @@
       visualTimer = window.setTimeout(() => {
         finishEASplash();
       }, secondDelay);
+
+      splashFallbackTimer = window.setTimeout(() => {
+        finishEASplash();
+      }, 5200);
     };
 
     async function initUnionLabAnimation() {
