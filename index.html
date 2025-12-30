@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Union Mob — Onboarding</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="splash-active">
+
+  <div id="splash-ea" class="splash active" aria-live="polite">
+    <div class="splash-content">
+      <div id="ea-logo" class="splash-logo">
+        <iframe
+          src="assets/electronic-artefacts-logo.html"
+          title="Electronic Artefacts animated logo"
+          loading="lazy"
+          frameborder="0"
+          scrolling="no"
+          aria-label="Electronic Artefacts logo animation"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="background-union-lab" class="hidden">
+    <div id="union-lab-canvas"></div>
+    <p class="background-note">Union Lab — field lab expérimental du collectif, visible en arrière-plan.</p>
+  </div>
+
+  <main id="app-onboarding" class="container hidden">
+    <header>
+      <div class="logos">
+        <img id="logo-union-mob" src="assets/UM_Logo.png" alt="Union Mob Logo" />
+      </div>
+    </header>
+
+    <div class="header-block">
+      <div class="progress-wrapper">
+        <div class="progress-bar" aria-hidden="true">
+          <span class="progress-fill"></span>
+        </div>
+        <p class="progress-status">Étape 1 / 7</p>
+      </div>
+      <p class="transition-text" id="transitionMessage">Tu avances vite — étape 1 / 7.</p>
+    </div>
+
+    <form id="unionForm" class="form-shell">
+      <div class="form-content">
+        <div class="steps">
+          <section class="step active" data-step="1">
+            <div class="step-inner">
+              <h1>Union Mob</h1>
+              <p class="subtitle">Rejoindre l’écosystème</p>
+              <p class="step-note">
+                Parcours fluide (2 à 3 minutes) pour situer ta présence dans l’écosystème et activer ton lien au collectif.
+              </p>
+              <p class="step-hook">
+                Tu fais déjà partie de ce que nous construisons.
+              </p>
+            </div>
+          </section>
+
+        <section class="step" data-step="2">
+          <div class="step-inner">
+            <h2>Identité</h2>
+            <label for="prenom">Prénom</label>
+            <input id="prenom" name="prenom" placeholder="Prénom" required autocomplete="given-name" />
+
+            <label for="nom">Nom</label>
+            <input id="nom" name="nom" placeholder="Nom" required autocomplete="family-name" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Email" required autocomplete="email" />
+
+            <label for="telephone">Téléphone (optionnel)</label>
+            <input id="telephone" name="telephone" placeholder="Téléphone (optionnel)" autocomplete="tel" />
+            <p class="field-hint">Optionnel — utile pour rester en lien rapidement.</p>
+
+            <label for="pronom">Pronom utilisé</label>
+            <select id="pronom" name="pronom">
+              <option value="">Pronom utilisé</option>
+              <option value="il / lui">il / lui</option>
+              <option value="elle / elle">elle / elle</option>
+              <option value="iel">iel</option>
+              <option value="autre">autre</option>
+              <option value="je préfère ne pas préciser">je préfère ne pas préciser</option>
+            </select>
+            <p class="field-hint">Laisser vide = langage neutre.</p>
+          </div>
+        </section>
+
+        <section class="step" data-step="3">
+        <div class="step-inner">
+            <h2>Ton lien à Union Mob</h2>
+            <p class="step-intro">
+              Ton statut ou partage actuel avec le collectif.
+            </p>
+            <p class="step-note">
+              Ce statut décrit ton lien actuel : membre créatif, staff, bénévole, ou explorateur du collectif.
+            </p>
+            <p class="declaration-note">
+              Déclaration de position : c’est ta présence dans le collectif, pas une sélection.
+            </p>
+            <label for="lien_unionmob">Ton lien à Union Mob</label>
+            <select id="lien_unionmob" name="lien_unionmob" required>
+              <option value="">Ton lien à Union Mob</option>
+              <option>Membre créatif</option>
+              <option>Freelance ponctuel</option>
+              <option>Staff / organisation</option>
+              <option>Bénévole</option>
+              <option>Exploration</option>
+            </select>
+
+            <label for="niveau_engagement">Niveau d’engagement</label>
+            <select id="niveau_engagement" name="niveau_engagement" required>
+              <option value="">Niveau d’engagement</option>
+              <option>Curieux</option>
+              <option>Occasionnel</option>
+              <option>Régulier</option>
+              <option>Cœur du projet</option>
+            </select>
+
+            <label for="temporalite">Temporalité (optionnel)</label>
+            <input id="temporalite" name="temporalite" placeholder="Temporalité / disponibilités" />
+            <p class="field-hint">Optionnel — aide à t’inscrire dans une équipe.</p>
+          </div>
+        </section>
+
+        <section class="step" data-step="4">
+        <div class="step-inner">
+            <h2>Union & rôle créatif</h2>
+            <p class="step-intro">
+              Le rôle ciblé, ce que tu veux apporter.
+            </p>
+            <p class="step-note">
+              Choisis la ou les unions qui décrivent ton champ d’action. L’union principale guide ton positionnement dans le collectif.
+            </p>
+            <p class="declaration-note">
+              Déclaration de contribution — pas d’évaluation, juste tes zones d’expression.
+            </p>
+            <label for="union_principale">Union principale</label>
+            <select id="union_principale" name="union_principale" required>
+              <option value="">Union principale</option>
+              <option>VIBE</option>
+              <option>IMAGE</option>
+              <option>FORM</option>
+              <option>CONCEPT</option>
+              <option>FIELD</option>
+              <option>CORE</option>
+            </select>
+
+            <label for="union_secondaire">Union secondaire (optionnel)</label>
+            <select id="union_secondaire" name="union_secondaire">
+              <option value="">Union secondaire</option>
+              <option>VIBE</option>
+              <option>IMAGE</option>
+              <option>FORM</option>
+              <option>CONCEPT</option>
+              <option>FIELD</option>
+              <option>CORE</option>
+            </select>
+            <p class="field-hint">Optionnel — utile pour compléter ton rôle.</p>
+          </div>
+        </section>
+
+        <section class="step" data-step="5">
+          <div class="step-inner">
+            <h2>Talents</h2>
+            <label for="competences">Compétences principales</label>
+            <textarea id="competences" name="competences" placeholder="Compétences principales"></textarea>
+
+            <label for="outils">Outils / logiciels maitrisés (optionnel)</label>
+            <textarea id="outils" name="outils" placeholder="Outils préférés"></textarea>
+            <p class="field-hint">Optionnel — pratique pour te positionner rapidement.</p>
+
+            <label for="experience">Expérience (optionnel)</label>
+            <textarea id="experience" name="experience" placeholder="Expérience récente ou marquante"></textarea>
+            <p class="field-hint">Optionnel — donne un aperçu de ton parcours.</p>
+          </div>
+        </section>
+
+        <section class="step" data-step="6">
+          <div class="step-inner">
+            <h2>Motivation</h2>
+            <label for="motivation">Pourquoi Union Mob ?</label>
+            <textarea id="motivation" name="motivation" placeholder="Pourquoi Union Mob ?"></textarea>
+            <p class="field-hint">Libre — raconte ce que tu veux partager, sans obligation.</p>
+
+            <label for="construction">Construction (optionnel)</label>
+            <textarea id="construction" name="construction" placeholder="Comment tu imagines contribuer"></textarea>
+            <p class="field-hint">Optionnel — utile si tu penses à un projet.</p>
+
+            <label for="projet_existant">Projet existant (optionnel)</label>
+            <textarea id="projet_existant" name="projet_existant" placeholder="Projet actuellement en cours"></textarea>
+            <p class="field-hint">Optionnel — pour partager ce qui bouillonne déjà.</p>
+          </div>
+        </section>
+
+        <section class="step" data-step="7">
+          <div class="step-inner final-step">
+            <h2>Final</h2>
+            <p class="step-note" id="finalReadyMessage">
+              Tu es prêt·e. On relie ton profil aux bons cercles Union Mob.
+            </p>
+            <p class="step-summary">
+              Vérifie que tes réponses sont justes, puis confirme pour partager ta présence.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+      <div class="actions">
+        <button type="button" id="prevBtn" class="ghost" hidden>Retour</button>
+        <button type="button" id="nextBtn" class="primary">Commencer</button>
+        <button type="submit" id="submitBtn" class="primary" hidden>Envoyer</button>
+      </div>
+    </form>
+
+    <section class="success-section" id="success" hidden aria-live="polite">
+      <h2>Bienvenue dans Union Mob</h2>
+      <p id="successMessage">Ton profil rejoint l’écosystème.</p>
+    </section>
+
+    <footer>
+      Union Mob · Onboarding collectif
+    </footer>
+  </main>
+
+  <div class="ea-credit" aria-hidden="true">
+    <span class="ea-credit__label">Signé par</span>
+    <div class="ea-logo-static" role="img" aria-label="Electronic Artefacts logo">
+      <span class="ea-electronic">electronic</span>
+      <span class="ea-artefacts">Artefacts</span>
+    </div>
+    <span class="ea-credit__meta">studio partenaire</span>
+  </div>
+
+  <script src="assets/js/visuals.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

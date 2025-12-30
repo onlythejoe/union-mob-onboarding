@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronic Artefacts — Logo</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Logo container */
+    h1 {
+      display: flex;
+      gap: 0.15rem;
+      align-items: baseline;
+      font-size: 3.1rem;
+      letter-spacing: 0rem;
+      opacity: 0;
+      transform: scale(0.98);
+      animation:
+        logo-intro 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        logo-breath 0.9s ease-in-out 0.9s 1,
+        logo-outro 0.9s cubic-bezier(0.4, 0, 0.6, 1) 2.2s forwards;
+    }
+
+    /* electronic */
+    .ea-electronic {
+      font-weight: 200;
+      letter-spacing: 0.005rem;
+      font-size: 0.78em;
+      transform: translateX(6px);
+      animation: electronic-separate 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Artefacts */
+    .ea-artefacts {
+      font-weight: 520;
+      letter-spacing: 0.006rem;
+      font-size: 1.22em;
+      transform: translateX(-6px);
+      animation: artefacts-separate 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* INTRO */
+    @keyframes logo-intro {
+      0% {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      100% {
+        opacity: 0.9;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes electronic-separate {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-6px);
+      }
+    }
+
+    @keyframes artefacts-separate {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(6px);
+      }
+    }
+
+    /* BREATHING LOOP */
+    @keyframes logo-breath {
+      0%, 100% {
+        letter-spacing: 0rem;
+        opacity: 0.9;
+      }
+      50% {
+        letter-spacing: 0.015rem;
+        opacity: 1;
+      }
+    }
+
+    /* OUTRO */
+    @keyframes logo-outro {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.04);
+        filter: blur(6px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <span class="ea-electronic">electronic</span>
+    <span class="ea-artefacts">Artefacts</span>
+  </h1>
+  <!-- copier aussi: Inter font is referenced but not supplied in this repo -->
+</body>
+</html>
