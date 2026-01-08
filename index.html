@@ -141,6 +141,9 @@
                 <span>Je préfère que d’autres parlent de mon travail</span>
               </label>
             </div>
+            <div class="orientation-live">
+              Lecture en cours : <strong data-orientation-live>—</strong>
+            </div>
 
             <div class="question-group">
               <label for="production_level" class="question-label">
@@ -157,6 +160,9 @@
                 value="2"
               />
               <p class="field-hint">0 = j’observe, 5 = je structure des équipes ou des workflows.</p>
+            </div>
+            <div class="orientation-live">
+              Lecture en cours : <strong data-orientation-live>—</strong>
             </div>
 
             <div class="question-group">
@@ -180,6 +186,9 @@
                   placeholder="Conférences, rencontres publiques, résidences..."
                 />
               </div>
+            </div>
+            <div class="orientation-live">
+              Lecture en cours : <strong data-orientation-live>—</strong>
             </div>
 
             <div class="question-group">
@@ -211,6 +220,9 @@
               name="contribution_notes"
               placeholder="Décris un atelier, une chaîne ou un outil que tu maîtrises"
             ></textarea>
+          </div>
+          <div class="orientation-live">
+            Lecture en cours : <strong data-orientation-live>—</strong>
           </div>
           <input type="hidden" name="union_principale" value="" />
           <input type="hidden" name="union_secondaire" value="" />
@@ -292,8 +304,19 @@
     <div class="presence-card" role="dialog" aria-modal="true">
       <div class="presence-card-top">
         <p class="membership-card__tag">Carte de présence</p>
+        <div class="orientation-tag">
+          <span class="orientation-tag__label">Synthèse en cours</span>
+        </div>
+        <div class="orientation-summary">
+          <span class="badge badge-primary" data-card-orientation-primary>On observe surtout : —</span>
+          <span class="badge badge-secondary" data-card-orientation-secondary>On observe aussi : —</span>
+          <span class="badge badge-hybrid hidden" data-card-orientation-hybrid>Hybride détectée</span>
+        </div>
+        <p class="orientation-explain">
+          On observe que tu privilégies ces modes d’action pour l’instant. Cette lecture peut évoluer.
+        </p>
+        <button type="button" id="membership-adjust" class="ghost btn-adjust">Réajuster mes réponses</button>
         <p class="membership-card__intro">Voici ta présence Union Mob. Tu peux l’enregistrer comme trace ou simplement poursuivre.</p>
-        <span class="membership-card__tag membership-card__tag--synthese">Synthèse en cours</span>
         <div class="membership-card__header">
           <h3 class="membership-card__name" data-card-name>—</h3>
           <img class="membership-card__logo" src="assets/UM_Logo.svg" alt="Union Mob logo" width="120" height="60" />
@@ -337,7 +360,6 @@
       <button type="button" id="membership-download" class="primary">Enregistrer ma carte</button>
       <button type="button" id="membership-send" class="ghost">Envoyer ma présence</button>
       <button type="button" id="membership-close" class="ghost">Continuer</button>
-      <button type="button" id="membership-adjust" class="ghost">Réajuster mes réponses</button>
     </div>
   </div>
 

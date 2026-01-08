@@ -29,8 +29,12 @@ const dom = {
   productionLevelValue: document.getElementById("productionLevelValue"),
   incarnationDetail: document.getElementById("incarnation-detail"),
   membershipAdjust: document.getElementById("membership-adjust"),
-  membershipCardOrientationSummary: document.querySelector("[data-card-orientation-summary]"),
-  membershipCardOrientationSecondary: document.querySelector("[data-card-orientation-secondary]")
+  orientationLiveElements: document.querySelectorAll("[data-orientation-live]"),
+  membershipCardOrientationPrimary: document.querySelector("[data-card-orientation-primary]"),
+  membershipCardOrientationSecondaryBadge: document.querySelector(
+    "[data-card-orientation-secondary]"
+  ),
+  membershipCardOrientationHybrid: document.querySelector("[data-card-orientation-hybrid]")
 };
 
 const controller = new OnboardingController(dom);

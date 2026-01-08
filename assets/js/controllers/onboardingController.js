@@ -5,6 +5,7 @@ import { showMembershipCard, hideMembershipCard } from "../services/membershipCa
 import { downloadMembershipCard } from "../services/cardDownloadService.js";
 import { setupViewportHeight } from "../services/viewportService.js";
 import { setupUnionLogoAnimation } from "../logoAnimator.js";
+import { computeOrientation } from "../services/orientationService.js";
 
 export class OnboardingController {
   constructor(dom) {
@@ -24,7 +25,10 @@ export class OnboardingController {
       membershipCardUnions: dom.membershipCardUnions,
       membershipCardZones: dom.membershipCardZones,
       membershipCardLink: dom.membershipCardLink,
-      membershipCardNotes: dom.membershipCardNotes
+      membershipCardNotes: dom.membershipCardNotes,
+      membershipCardOrientationPrimary: dom.membershipCardOrientationPrimary,
+      membershipCardOrientationSecondaryBadge: dom.membershipCardOrientationSecondaryBadge,
+      membershipCardOrientationHybrid: dom.membershipCardOrientationHybrid
     };
     this.membershipNodes.membershipCardOrientationSummary =
       dom.membershipCardOrientationSummary;
@@ -33,13 +37,14 @@ export class OnboardingController {
     this.buttons = {
       membershipDownload: dom.membershipDownload,
       membershipSend: dom.membershipSend,
-      membershipClose: dom.membershipClose
+      membershipClose: dom.membershipClose,
+      membershipAdjust: dom.membershipAdjust
     };
-    this.buttons.membershipAdjust = dom.membershipAdjust;
     this.productionSlider = dom.productionSlider;
     this.productionLevelValue = dom.productionLevelValue;
     this.incarnationDetail = dom.incarnationDetail;
     this.pronounSelect = dom.pronounSelect;
+    this.orientationLiveElements = Array.from(dom.orientationLiveElements || []);
 
     this.stepManager = new StepManager({
       steps: Array.from(dom.steps),
@@ -63,6 +68,7 @@ export class OnboardingController {
     this.stepManager.init();
     this.updateProductionLevelValue(this.productionSlider?.value ?? "2");
     this.toggleIncarnationDetail();
+    this.updateOrientationLive();
     this.updatePronounFeedback();
     updateDynamicText({
       userPronoun: this.userPronoun,
@@ -128,11 +134,13 @@ export class OnboardingController {
     this.form?.addEventListener("input", (event) => {
       this.stepManager.handleFormEvent(event);
       this.updateConditionalFields(event);
+      this.updateOrientationLive();
     });
 
     this.form?.addEventListener("change", (event) => {
       this.stepManager.handleFormEvent(event);
       this.updateConditionalFields(event);
+      this.updateOrientationLive();
     });
 
     this.form?.addEventListener("submit", (event) => {
@@ -182,6 +190,21 @@ export class OnboardingController {
     }
     this.transitions.pronounFeedback.textContent =
       "Ton langage neutre reste privilégié tant que tu ne précises rien.";
+  }
+
+  updateOrientationLive() {
+    if (!this.orientationLiveElements.length || !this.form) return;
+    const formValues = Object.fromEntries(new FormData(this.form).entries());
+    const orientation = computeOrientation(formValues);
+    const label =
+      orientation.orientation_suggeree || "en cours d’observation";
+    this.orientationLiveElements.forEach((element) => {
+      element.textContent = label;
+      const container = element.closest(".orientation-live");
+      if (!container) return;
+      container.classList.add("updating");
+      window.requestAnimationFrame(() => container.classList.remove("updating"));
+    });
   }
 
   updateConditionalFields(event) {

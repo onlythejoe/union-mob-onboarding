@@ -16,10 +16,11 @@ export function buildMembershipCardPayload(formValues) {
   const link = formValues.lien_unionmob || "Position à clarifier";
   const orientationSummary = formValues.orientation_suggeree
     ? `On observe surtout : ${formValues.orientation_suggeree}`
-    : "On observe tes pratiques en cours d’analyse.";
+    : "On observe encore trop peu d’indices pour dégager une orientation.";
   const orientationSecondary = formValues.orientation_secondaire
-    ? `On observe aussi que tu interviens parfois comme : ${formValues.orientation_secondaire}`
+    ? `On observe aussi : ${formValues.orientation_secondaire}`
     : "On observe aussi que tu explores d’autres modes d’action.";
+  const orientationHybride = Boolean(formValues.orientation_hybride);
   membershipCardData = {
     name,
     unions,
@@ -29,7 +30,7 @@ export function buildMembershipCardPayload(formValues) {
     orientationSummary,
     orientationSecondary,
     orientationScore: formValues.orientation_score || {},
-    orientationHybride: Boolean(formValues.orientation_hybride)
+    orientationHybride
   };
   return membershipCardData;
 }
@@ -43,8 +44,9 @@ export function populateMembershipCard(nodes) {
     membershipCardZones,
     membershipCardLink,
     membershipCardNotes,
-    membershipCardOrientationSummary,
-    membershipCardOrientationSecondary
+    membershipCardOrientationPrimary,
+    membershipCardOrientationSecondaryBadge,
+    membershipCardOrientationHybrid
   } = nodes;
 
   if (membershipCardName) membershipCardName.textContent = membershipCardData.name;
@@ -52,11 +54,18 @@ export function populateMembershipCard(nodes) {
   if (membershipCardZones) membershipCardZones.textContent = membershipCardData.zones;
   if (membershipCardLink) membershipCardLink.textContent = membershipCardData.link;
   if (membershipCardNotes) membershipCardNotes.textContent = membershipCardData.notes;
-  if (membershipCardOrientationSummary) {
-    membershipCardOrientationSummary.textContent = membershipCardData.orientationSummary;
+  if (membershipCardOrientationPrimary) {
+    membershipCardOrientationPrimary.textContent = membershipCardData.orientationSummary;
   }
-  if (membershipCardOrientationSecondary) {
-    membershipCardOrientationSecondary.textContent = membershipCardData.orientationSecondary;
+  if (membershipCardOrientationSecondaryBadge) {
+    membershipCardOrientationSecondaryBadge.textContent =
+      membershipCardData.orientationSecondary;
+  }
+  if (membershipCardOrientationHybrid) {
+    membershipCardOrientationHybrid.classList.toggle(
+      "hidden",
+      !membershipCardData.orientationHybride
+    );
   }
 
   if (membershipCard) {

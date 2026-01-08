@@ -367,6 +367,86 @@ html, body {
   filter: opacity(0.9);
 }
 
+.orientation-tag {
+  width: 100%;
+  background: rgba(124, 58, 237, 0.08);
+  color: rgba(124, 58, 237, 0.9);
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.orientation-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.badge {
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-primary {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(124, 58, 237, 0.6));
+  color: #fff;
+  border: 1px solid rgba(124, 58, 237, 0.9);
+  font-weight: 700;
+}
+
+.badge-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+  background: transparent;
+}
+
+.badge-hybrid {
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+}
+
+.badge-hybrid.hidden {
+  display: none;
+}
+
+.orientation-explain {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.btn-adjust {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: var(--vx-text);
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn-adjust:hover {
+  border-color: rgba(124, 58, 237, 0.9);
+  background: rgba(124, 58, 237, 0.1);
+}
 @media (max-width: 480px) {
   .membership-card__header {
     flex-direction: column-reverse;
@@ -570,6 +650,25 @@ header {
   margin: 0.15rem 0 0.65rem;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
+}
+
+.orientation-live {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+.orientation-live strong {
+  color: var(--vx-accent);
+  font-weight: 700;
+  display: inline-block;
+  min-width: 4ch;
+  text-transform: uppercase;
+}
+.orientation-live.updating {
+  opacity: 0.6;
 }
 
 .question-group {
