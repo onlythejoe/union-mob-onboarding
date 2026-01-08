@@ -24,7 +24,13 @@ const dom = {
   membershipCardNotes: document.querySelector("[data-card-notes]"),
   membershipDownload: document.getElementById("membership-download"),
   membershipSend: document.getElementById("membership-send"),
-  membershipClose: document.getElementById("membership-close")
+  membershipClose: document.getElementById("membership-close"),
+  productionSlider: document.getElementById("production_level"),
+  productionLevelValue: document.getElementById("productionLevelValue"),
+  incarnationDetail: document.getElementById("incarnation-detail"),
+  membershipAdjust: document.getElementById("membership-adjust"),
+  membershipCardOrientationSummary: document.querySelector("[data-card-orientation-summary]"),
+  membershipCardOrientationSecondary: document.querySelector("[data-card-orientation-secondary]")
 };
 
 const controller = new OnboardingController(dom);

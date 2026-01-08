@@ -26,11 +26,19 @@ export class OnboardingController {
       membershipCardLink: dom.membershipCardLink,
       membershipCardNotes: dom.membershipCardNotes
     };
+    this.membershipNodes.membershipCardOrientationSummary =
+      dom.membershipCardOrientationSummary;
+    this.membershipNodes.membershipCardOrientationSecondary =
+      dom.membershipCardOrientationSecondary;
     this.buttons = {
       membershipDownload: dom.membershipDownload,
       membershipSend: dom.membershipSend,
       membershipClose: dom.membershipClose
     };
+    this.buttons.membershipAdjust = dom.membershipAdjust;
+    this.productionSlider = dom.productionSlider;
+    this.productionLevelValue = dom.productionLevelValue;
+    this.incarnationDetail = dom.incarnationDetail;
     this.pronounSelect = dom.pronounSelect;
 
     this.stepManager = new StepManager({
@@ -53,6 +61,8 @@ export class OnboardingController {
   init() {
     this.viewportCleanup = setupViewportHeight();
     this.stepManager.init();
+    this.updateProductionLevelValue(this.productionSlider?.value ?? "2");
+    this.toggleIncarnationDetail();
     this.updatePronounFeedback();
     updateDynamicText({
       userPronoun: this.userPronoun,
@@ -91,6 +101,13 @@ export class OnboardingController {
       });
     });
 
+    this.buttons.membershipAdjust?.addEventListener("click", () => {
+      hideMembershipCard({
+        membershipCard: this.membershipNodes.membershipCard
+      });
+      this.stepManager.showStep(4);
+    });
+
     this.previewCardBtn?.addEventListener("click", () => {
       const data = collectFormData(this.form);
       if (!data) return;
@@ -110,10 +127,12 @@ export class OnboardingController {
 
     this.form?.addEventListener("input", (event) => {
       this.stepManager.handleFormEvent(event);
+      this.updateConditionalFields(event);
     });
 
     this.form?.addEventListener("change", (event) => {
       this.stepManager.handleFormEvent(event);
+      this.updateConditionalFields(event);
     });
 
     this.form?.addEventListener("submit", (event) => {
@@ -163,6 +182,28 @@ export class OnboardingController {
     }
     this.transitions.pronounFeedback.textContent =
       "Ton langage neutre reste privilégié tant que tu ne précises rien.";
+  }
+
+  updateConditionalFields(event) {
+    if (!event?.target) return;
+    if (event.target === this.productionSlider) {
+      this.updateProductionLevelValue(event.target.value);
+    }
+    if (event.target.name === "incarnation_public") {
+      this.toggleIncarnationDetail();
+    }
+  }
+
+  updateProductionLevelValue(value) {
+    if (!this.productionLevelValue) return;
+    this.productionLevelValue.textContent = value ?? "0";
+  }
+
+  toggleIncarnationDetail() {
+    if (!this.incarnationDetail) return;
+    const selected = document.querySelector('input[name="incarnation_public"]:checked');
+    const showDetail = selected?.value === "oui";
+    this.incarnationDetail.classList.toggle("hidden", !showDetail);
   }
 
   attachWindowExports() {

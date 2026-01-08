@@ -120,33 +120,102 @@
         </section>
 
         <section class="step" data-step="4">
-        <div class="step-inner">
-            <h2>Unions & zones d’expression</h2>
+          <div class="step-inner">
+            <h2>Cartographier ton mode d’action</h2>
             <p class="step-note">
-              Décris ici les espaces où tu choisis de t’exprimer. L’union principale est une orientation, les secondaires viennent ajouter des textures à ta présence.
+              Ce diagnostic décrit ce que tu fais aujourd’hui. Ce n’est ni une étiquette, ni un engagement définitif.
             </p>
-            <label for="union_principale">Union principale</label>
-            <select id="union_principale" name="union_principale" required>
-              <option value="">Union principale</option>
-              <option>Core</option>
-              <option>Scene</option>
-              <option>Media</option>
-              <option>Production</option>
-              <option>Fabric</option>
-            </select>
 
-            <label for="union_secondaire">Union secondaire (optionnel)</label>
-            <select id="union_secondaire" name="union_secondaire">
-              <option value="">Union secondaire</option>
-              <option>Core</option>
-              <option>Scene</option>
-              <option>Media</option>
-              <option>Production</option>
-              <option>Fabric</option>
-            </select>
-            <p class="field-hint">Optionnel — utile pour compléter ton rôle.</p>
+            <div class="question-group">
+              <p class="question-label">Publication</p>
+              <label class="radio-option">
+                <input type="radio" name="publication_preference" value="régulièrement" />
+                <span>Je rends visible mes créations et découvertes régulièrement</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="publication_preference" value="ponctuellement" />
+                <span>Je partage ponctuellement quand c’est pertinent</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="publication_preference" value="d’autres parlent" />
+                <span>Je préfère que d’autres parlent de mon travail</span>
+              </label>
+            </div>
+
+            <div class="question-group">
+              <label for="production_level" class="question-label">
+                À quel point tu pilotes ou structures des projets ?
+                <span id="productionLevelValue" class="question-value">2</span>
+              </label>
+              <input
+                type="range"
+                id="production_level"
+                name="production_level"
+                min="0"
+                max="5"
+                step="1"
+                value="2"
+              />
+              <p class="field-hint">0 = j’observe, 5 = je structure des équipes ou des workflows.</p>
+            </div>
+
+            <div class="question-group">
+              <p class="question-label">
+                Es-tu régulièrement amené·e à représenter un projet ou un collectif en public ?
+              </p>
+              <label class="radio-option">
+                <input type="radio" name="incarnation_public" value="oui" />
+                <span>Oui</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="incarnation_public" value="non" />
+                <span>Non</span>
+              </label>
+              <div id="incarnation-detail" class="conditional-detail hidden">
+                <label for="incarnation_detail" class="question-label">Dans quel contexte ?</label>
+                <input
+                  type="text"
+                  id="incarnation_detail"
+                  name="incarnation_detail"
+                  placeholder="Conférences, rencontres publiques, résidences..."
+                />
+              </div>
+            </div>
+
+            <div class="question-group">
+              <p class="question-label">
+                Dans quel type de chaîne technique ou d’atelier tu te sens utile ?
+              </p>
+              <label class="checkbox-option">
+                <input type="checkbox" name="contribution_technique[]" value="dev" />
+                <span>Dev / tech</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="contribution_technique[]" value="fabrication" />
+                <span>Fabrication / fabrication numérique</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="contribution_technique[]" value="audio" />
+                <span>Audio / son</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="contribution_technique[]" value="design" />
+                <span>Design / direction artistique</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="contribution_technique[]" value="autre-technique" />
+                <span>Autre expertise technique</span>
+              </label>
+            <textarea
+              id="contribution_notes"
+              name="contribution_notes"
+              placeholder="Décris un atelier, une chaîne ou un outil que tu maîtrises"
+            ></textarea>
           </div>
-        </section>
+          <input type="hidden" name="union_principale" value="" />
+          <input type="hidden" name="union_secondaire" value="" />
+        </div>
+      </section>
 
         <section class="step" data-step="5">
           <div class="step-inner">
@@ -224,6 +293,7 @@
       <div class="presence-card-top">
         <p class="membership-card__tag">Carte de présence</p>
         <p class="membership-card__intro">Voici ta présence Union Mob. Tu peux l’enregistrer comme trace ou simplement poursuivre.</p>
+        <span class="membership-card__tag membership-card__tag--synthese">Synthèse en cours</span>
         <div class="membership-card__header">
           <h3 class="membership-card__name" data-card-name>—</h3>
           <img class="membership-card__logo" src="assets/UM_Logo.svg" alt="Union Mob logo" width="120" height="60" />
@@ -248,6 +318,17 @@
               <span class="membership-card__label">Phrase libre</span>
               <span data-card-notes>—</span>
             </p>
+            <p class="membership-card__field">
+              <span class="membership-card__label">Lecture actuelle</span>
+              <span data-card-orientation-summary>—</span>
+            </p>
+            <p class="membership-card__field">
+              <span class="membership-card__label">Observations complémentaires</span>
+              <span data-card-orientation-secondary>—</span>
+            </p>
+            <p class="membership-card__field membership-card__field--note">
+              Cette lecture peut évoluer à mesure que tu partages de nouvelles pratiques.
+            </p>
           </div>
         </div>
       </div>
@@ -256,6 +337,7 @@
       <button type="button" id="membership-download" class="primary">Enregistrer ma carte</button>
       <button type="button" id="membership-send" class="ghost">Envoyer ma présence</button>
       <button type="button" id="membership-close" class="ghost">Continuer</button>
+      <button type="button" id="membership-adjust" class="ghost">Réajuster mes réponses</button>
     </div>
   </div>
 

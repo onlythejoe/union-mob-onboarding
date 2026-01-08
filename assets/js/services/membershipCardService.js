@@ -14,7 +14,23 @@ export function buildMembershipCardPayload(formValues) {
   const notes =
     formValues.motivation || formValues.construction || formValues.projet_existant || "—";
   const link = formValues.lien_unionmob || "Position à clarifier";
-  membershipCardData = { name, unions, zones: zonesText, notes, link };
+  const orientationSummary = formValues.orientation_suggeree
+    ? `On observe surtout : ${formValues.orientation_suggeree}`
+    : "On observe tes pratiques en cours d’analyse.";
+  const orientationSecondary = formValues.orientation_secondaire
+    ? `On observe aussi que tu interviens parfois comme : ${formValues.orientation_secondaire}`
+    : "On observe aussi que tu explores d’autres modes d’action.";
+  membershipCardData = {
+    name,
+    unions,
+    zones: zonesText,
+    notes,
+    link,
+    orientationSummary,
+    orientationSecondary,
+    orientationScore: formValues.orientation_score || {},
+    orientationHybride: Boolean(formValues.orientation_hybride)
+  };
   return membershipCardData;
 }
 
@@ -26,7 +42,9 @@ export function populateMembershipCard(nodes) {
     membershipCardUnions,
     membershipCardZones,
     membershipCardLink,
-    membershipCardNotes
+    membershipCardNotes,
+    membershipCardOrientationSummary,
+    membershipCardOrientationSecondary
   } = nodes;
 
   if (membershipCardName) membershipCardName.textContent = membershipCardData.name;
@@ -34,6 +52,12 @@ export function populateMembershipCard(nodes) {
   if (membershipCardZones) membershipCardZones.textContent = membershipCardData.zones;
   if (membershipCardLink) membershipCardLink.textContent = membershipCardData.link;
   if (membershipCardNotes) membershipCardNotes.textContent = membershipCardData.notes;
+  if (membershipCardOrientationSummary) {
+    membershipCardOrientationSummary.textContent = membershipCardData.orientationSummary;
+  }
+  if (membershipCardOrientationSecondary) {
+    membershipCardOrientationSecondary.textContent = membershipCardData.orientationSecondary;
+  }
 
   if (membershipCard) {
     membershipCard.classList.remove("hidden");
