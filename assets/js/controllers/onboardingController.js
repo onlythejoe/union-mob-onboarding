@@ -4,6 +4,7 @@ import { buildTransitionCopy, updateDynamicText } from "../services/transitionSe
 import { showMembershipCard, hideMembershipCard } from "../services/membershipCardService.js";
 import { downloadMembershipCard } from "../services/cardDownloadService.js";
 import { setupViewportHeight } from "../services/viewportService.js";
+import { setupUnionLogoAnimation } from "../logoAnimator.js";
 
 export class OnboardingController {
   constructor(dom) {
@@ -62,6 +63,7 @@ export class OnboardingController {
     this.renderTransitionCopy();
     this.attachWindowExports();
     this.initVisuals();
+    setupUnionLogoAnimation();
   }
 
   attachEventListeners() {

@@ -510,10 +510,11 @@ header {
   border-radius: 0;
   box-shadow: none;
   max-width: 100%;
-  object-fit: contain;
   height: clamp(58px, 10vw, 76px);
   width: auto;
-  display: block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ea-credit {

@@ -1,0 +1,59 @@
+/*
+ * Keeping animation logic in this stylesheet keeps assets pure SVGs while letting the UI
+ * layer handle hover transitions, filters and glitch timing for maintainability and reuse.
+ */
+
+#logo-union-mob {
+  color: #fff;
+}
+
+#logo-union-mob path {
+  fill: currentColor;
+  transition:
+    fill 0.35s ease,
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.35s ease;
+}
+
+@keyframes union-logo-glitch {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-1px, 1px, 0);
+  }
+  40% {
+    transform: translate3d(1px, -1px, 0);
+  }
+  60% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  80% {
+    transform: translate3d(1px, 1px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #logo-union-mob:hover {
+    color: var(--vx-accent, #7c3aed);
+  }
+
+  #logo-union-mob:hover path {
+    filter:
+      drop-shadow(0 0 6px rgba(124, 58, 237, 0.6))
+      drop-shadow(0 0 14px rgba(124, 58, 237, 0.35));
+    animation: union-logo-glitch 0.6s steps(3, end) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #logo-union-mob,
+  #logo-union-mob path {
+    transition: none;
+    animation: none;
+    filter: none;
+  }
+}
