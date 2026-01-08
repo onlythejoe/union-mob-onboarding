@@ -709,11 +709,36 @@ header {
 .radio-option input,
 .checkbox-option input {
   accent-color: var(--vx-accent);
+  cursor: pointer;
+}
+
+.radio-option input:focus-visible + span,
+.checkbox-option input:focus-visible + span {
+  outline: 1px dashed var(--vx-accent);
+  outline-offset: 0.2rem;
+}
+
+.radio-option input:checked + span,
+.checkbox-option input:checked + span {
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 0 4px rgba(124, 58, 237, 0.6);
+}
+
+.radio-option span,
+.checkbox-option span {
+  transition: color 0.2s ease, font-weight 0.2s ease, text-shadow 0.2s ease;
 }
 
 .question-group input[type='range'] {
   width: 100%;
   accent-color: var(--vx-accent);
+  cursor: pointer;
+}
+
+.question-group input[type='range']:focus-visible {
+  outline: 1px dashed var(--vx-accent);
+  outline-offset: 0.4rem;
 }
 
 .conditional-detail {
