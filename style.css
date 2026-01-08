@@ -659,6 +659,7 @@ header {
   color: rgba(255, 255, 255, 0.7);
   opacity: 0.9;
   transition: opacity 0.25s ease;
+  pointer-events: none;
 }
 .orientation-live strong {
   color: var(--vx-accent);
@@ -723,6 +724,18 @@ header {
 }
 .conditional-detail.hidden {
   display: none;
+}
+
+.step[data-step="4"],
+.step[data-step="4"] * {
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.step[data-step="4"]::before,
+.step[data-step="4"]::after {
+  pointer-events: none;
 }
 
 .membership-card__tag--synthese {
